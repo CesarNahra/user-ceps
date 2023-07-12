@@ -12,7 +12,7 @@ export const FormLoginComponent = () => {
   const navigate = useNavigate();
 
   const isDisabled = () => {
-    return !data.email || !data.password || !data.email.includes('@') || !data.password.length < 8;
+    return !data.email || !data.password || !data.email.includes('@') || data.password.length < 8;
   }
 
   const handleInput = (e) => {
