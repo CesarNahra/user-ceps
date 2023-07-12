@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import * as Styled from './Login.style'
 import { useState } from "react";
+import { InputComponent } from "../Input/Input.component";
 
 export const FormLoginComponent = () => {
 
@@ -34,14 +35,8 @@ export const FormLoginComponent = () => {
       </Styled.Header>
 
       <Styled.InputGroup>
-        <div className="input-group">
-          <label htmlFor="email">E-mail</label>
-          <input type="email" id="email" onInput={handleInput} placeholder="Digite seu email" />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">Senha</label>
-          <input type="password" id="password" onInput={handleInput} placeholder="Digite sua senha" />
-        </div>
+        <InputComponent id='email' type='email' placeholder='Digite o seu email' label='Email'/>
+        <InputComponent id='password' type='password' placeholder='Digite a sua senha' label='Senha'/>
       </Styled.InputGroup>
 
       <Styled.Button type="submit" disabled={isDisabled()}>Entrar</Styled.Button>
