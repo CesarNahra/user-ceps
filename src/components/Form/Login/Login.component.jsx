@@ -4,10 +4,33 @@ import { InputComponent } from "../Input/Input.component";
 import { useForm } from "react-hook-form";
 
 export const FormLoginComponent = () => {
+  const users = [
+    {
+      id: 1,
+      email: 'admin@usercep.com',
+      password: '12345678'
+    },
+    {
+      id: 2,
+      email: 'usuario@usercep.com',
+      password: '432132423'
+    },
+    {
+      id: 3,
+      email: 'usercep@gmail.com',
+      password: '86153613'
+    },
+    {
+      id: 4,
+      email: 'cesarsantanna.nahra@gmail.com',
+      password: '45646961'
+    },
+  ]
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm()
 
@@ -15,7 +38,17 @@ export const FormLoginComponent = () => {
   const navigate = useNavigate();
 
   const submitForm = (data) => {
-    console.log(data)
+    const {email, password} = data;
+
+    const user = users.find(u => u.email === email);
+
+    if(!user) {
+      alert('usuário não cadastrado');
+      reset();
+      return;
+    }
+
+    password === user.password ? redirectToHome() : alert('ops usuário ou senha inválidos')
   }
 
   const redirectToHome = () => {
