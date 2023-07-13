@@ -1,26 +1,21 @@
 import { useNavigate } from "react-router-dom"
 import * as Styled from './Login.style'
-import { useState } from "react";
 import { InputComponent } from "../Input/Input.component";
+import { useForm } from "react-hook-form";
 
 export const FormLoginComponent = () => {
 
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
 
   const navigate = useNavigate();
 
-  const isDisabled = () => {
-    return !data.email || !data.password || !data.email.includes('@') || data.password.length < 8;
-  }
-
-  const handleInput = (e) => {
-    e.preventDefault();
-    const {value, id} = e.target;
-    
-    setData({...data, [id]: value})
+  const submitForm = (data) => {
+    console.log(data)
   }
 
   const redirectToHome = () => {
@@ -28,18 +23,35 @@ export const FormLoginComponent = () => {
   }
 
   return (
-    <Styled.Form onSubmit={redirectToHome}>
+    <Styled.Form onSubmit={handleSubmit(submitForm)}>
       <Styled.Header>
         <Styled.Title>Login</Styled.Title>
-        <Styled.SubTitle>Texto</Styled.SubTitle>
+        <Styled.SubTitle>Para acessar o sistema digite seu email e sua senha.</Styled.SubTitle>
       </Styled.Header>
 
       <Styled.InputGroup>
-        <InputComponent id='email' type='email' placeholder='Digite o seu email' label='Email'/>
-        <InputComponent id='password' type='password' placeholder='Digite a sua senha' label='Senha'/>
+        <InputComponent
+          id='email'
+          type='email'
+          placeholder='Digite o seu email'
+          label='Email'
+          register={{ ...register('email', {
+            required: true,
+            validate: {matchPath: (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v)}}) 
+          }}
+          error={errors.email}
+        />
+        <InputComponent
+          id='password'
+          type='password'
+          placeholder='Digite a sua senha'
+          label='Senha'
+          register={{ ...register('password', {required: true, minLength: 8}) }}
+          error={errors.password}
+        />
       </Styled.InputGroup>
 
-      <Styled.Button type="submit" disabled={isDisabled()}>Entrar</Styled.Button>
+      <Styled.Button $active={!errors.email && !errors.password} type="submit" disabled={errors.email || errors.password}>Entrar</Styled.Button>
 
       <Styled.Action>
         <Styled.EsqueciSenha href="">Esqueci minha senha</Styled.EsqueciSenha>

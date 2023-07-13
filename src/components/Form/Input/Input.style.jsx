@@ -13,7 +13,7 @@ export const Label = styled.label`
     align-items: flex-start;
     gap: 10px;
     align-self: stretch;
-    color: #5281DC;
+    color: ${({$color}) => {return $color === 'danger' ? '#BE2E2E' : '#5281DC'}};
     font-family: Segoe UI;
     font-size: 12px;
     font-style: normal;
@@ -27,7 +27,7 @@ export const Input = styled.input`
     align-items: flex-start;
     align-self: stretch;
     border-radius: 5px;
-    border: 1px solid #5281DC;
+    border: 1px solid ${({$color}) => {return $color === 'danger' ? '#BE2E2E' : '#5281DC'}};
     width: 100%;
 `
 
@@ -36,6 +36,9 @@ export const TextArea = styled.textarea`
     padding: 8px;
     align-items: flex-start;
     align-self: stretch;
+    border-radius: 5px;
+    border: 1px solid ${({$color}) => {return $color === 'danger' ? '#BE2E2E' : '#5281DC'}};
+    width: 100%;
 `
 
 export const InputContainer = styled.div`
@@ -53,5 +56,5 @@ export const Icon = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #5281dc;
+    color: ${({$color}) => {return $color === 'danger' ? '#BE2E2E' : '#5281DC'}};
 `
