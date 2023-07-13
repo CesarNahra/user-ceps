@@ -4,30 +4,9 @@ import { InputComponent } from "../Input/Input.component";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../../contexts/auth/auth.context";
+import { UserService } from "../../../services/User/User.service";
 
 export const FormLoginComponent = () => {
-  const users = [
-    {
-      id: 1,
-      email: 'admin@usercep.com',
-      password: '12345678'
-    },
-    {
-      id: 2,
-      email: 'usuario@usercep.com',
-      password: '432132423'
-    },
-    {
-      id: 3,
-      email: 'usercep@gmail.com',
-      password: '86153613'
-    },
-    {
-      id: 4,
-      email: 'cesarsantanna.nahra@gmail.com',
-      password: '45646961'
-    },
-  ]
 
   const {
     register,
@@ -44,7 +23,8 @@ export const FormLoginComponent = () => {
   const submitForm = (data) => {
     const {email, password} = data;
 
-    const user = users.find(u => u.email === email);
+    // const user = users.find(u => u.email === email);
+    const user = UserService.ShowByEmail(email);
 
     if(!user) {
       alert('usuário não cadastrado');
